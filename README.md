@@ -12,7 +12,7 @@
 - **Windows 平台兼容性**: 目前僅與 Windows 平台兼容。
 
 ## How to use
-> 直接在 Novus 的資料夾底下或是對於此插件在您自己的專案中存放
+> 直接在 Novus 的資料夾底下(或是對於此插件在您自己的專案中存放)
 ```
 cd extensions
 git clone https://github.com/Yomisana-Lab/Novus-Extension-Sandbox-Terminal.git
