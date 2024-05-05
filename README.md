@@ -10,3 +10,10 @@
 - **附加環境變量的腳本執行**: 允許腳本指定額外的環境變量，以在沙盒模式下執行。
 - **無性能損失**: 確保在沙盒環境中運行時沒有性能下降問題。
 - **Windows 平台兼容性**: 目前僅與 Windows 平台兼容。
+
+## How to use
+> 直接在 Novus 的資料夾底下或是對於此插件在您自己的專案中存放
+```
+cd extensions
+git clone https://github.com/Yomisana-Lab/Novus-Extension-Sandbox-Terminal.git
+```
