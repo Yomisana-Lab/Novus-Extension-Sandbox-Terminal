@@ -1,7 +1,7 @@
 import { spawn, exec, execSync } from "child_process";
 import os from "os";
 // base env for windows none any else env config
-const Base_env = {
+const WBase_env = {
   ALLUSERSPROFILE: "C:\\ProgramData",
   APPDATA: process.env.APPDATA,
   CommonProgramFiles: "C:\\Program Files\\Common Files",
@@ -38,32 +38,36 @@ const Base_env = {
   USERNAME: process.env.USERNAME,
   USERPROFILE: process.env.USERPROFILE,
   windir: "C:\\Windows",
+  Novus: "Hello DOS - Windows - 1.0",
+};
+// base env for linux none any else env config
+const LBase_env = {
+  // TODO: linux base env
+  // No idea how to do it :P
+  Novus: "Hello Unix - Linux - 1.0",
 };
 
 export default function Terminal(
   command,
   options = { cwd: process.cwd(), env: { Path: "" }, show_command: true }
 ) {
-  // if command is "" or null or undefined or object, then set default command
   if (!command) {
-    command = "echo %path%";
+    command = "echo Nothing command to run...";
+    // return `sussess run command: ${command} in ${options.cwd}`;
   }
-  // const runcommand = `echo $${options.cwd}> ${command} && ${command}`;
-  // console.log(`Terminal: \ncommand:${runcommand}`);
   if (options.show_command) {
-    console.log(`${options.cwd}\n$> ${command}`); // windows style
-    // console.log(`${process.env.username}@${process.env.USERDOMAIN}:${options.cwd}$ ${command}`) // linux style
+    console.log(`${options.cwd}>${command}`); // windows style
+    // console.log(`${process.env.username}@${process.env.USERDOMAIN}:${options.cwd}# ${command}`) // linux style
   }
-  mergeEnvOptions(Base_env, options.env); // merge env base + options.env
-  // console.log(`Terminal: \nenv:${JSON.stringify(Base_env)}`)
-  // sync run terminal command | 同步執行終端機指令
-  // console.log(`[Terminal] command: ${command}, options: ${JSON.stringify(options)}`)
-  // const terminal = execSync(command, {
+
+  let merge_env =
+    os.platform() === "win32"
+      ? mergeEnvOptions(WBase_env, options.env)
+      : mergeEnvOptions(LBase_env, options.env); // merge env base + options.env
   const terminal = execSync(
     `${command}${os.platform() === "win32" ? " && echo." : ""}`,
     {
-      // Use the parent process's standard input, output, and error
-      env: Base_env,
+      env: merge_env,
       shell: true,
       cwd: options.cwd !== undefined ? options.cwd : process.cwd(),
     },
